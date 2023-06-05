@@ -6,77 +6,11 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:29:36 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/04 14:30:17 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:15:50 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-/* skip_space_sign_0x:
-*	Skips spaces, '+' sign character and '0x' or '0X'
-*	to parse hexadecimal color code strings.
-*/
-static int	skip_space_sign_0x(char *color)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isspace(color[i]))
-		i++;
-	if (color[i] == '+')
-		i++;
-	if (color[i] == '0' && (color[i + 1]
-			&& (color[i + 1] == 'x' || color[i] == 'X')))
-		i = i + 2;
-	return (i);
-}
-
-/* ft_atox_color:
-*	Translates a hexadecimal color code string into an integer.
-*	Valid: "RRGGBB", "0XRRGGBB", "rrggbb", "   +rrggbb"
-*	Invalid: "-RRGGBB" "RRGGBB-", "RR GG BB"
-*	If the string is not a valid hex color code, an error is displayed.
-*	Returns the converted int. -1 if an error occured.
-*/
-static int	ft_atox_color(t_fractol *f, char *color)
-{
-	int	i;
-	int	x;
-	int	n;
-
-	n = 0;
-	i = 0;
-	i = skip_space_sign_0x(color);
-	x = 0;
-	while (color[i] && ft_ishexdigit(color[i]))
-	{
-		if (ft_isdigit(color[i]))
-			n = (n * 16) + (color[i] - '0');
-		else
-			n = (n * 16) + (ft_toupper(color[i]) - 'A' + 10);
-		i++;
-		x++;
-	}
-	if (x == 6 && !color[i])
-		return (n);
-	else
-		help_msg(f);
-	return (-1);
-}
-
-/* get_color:
-*	Gets the color option provided as argument at program launch.
-*	If no color was specified, sets a default value to be used.
-*/
-void	get_color(t_fractol *f, int ac, char **av)
-{
-	if (f->set == JULIA && ac == 5)
-		f->color = ft_atox_color(f, av[4]);
-	else if (f->set != JULIA && ac == 3)
-		f->color = ft_atox_color(f, av[2]);
-	if (ac == 2 || (f->set == JULIA && ac == 4))
-		f->color = 0x9966FF;
-}
 
 /* skip_space_sign:
 *	Skips spaces, '+' and '-' sign characters and sets the

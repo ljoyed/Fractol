@@ -6,7 +6,7 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:36:19 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/04 14:36:22 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:08:27 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@ void	clean_exit(int exit_code, t_fractol *f)
 	exit(exit_code);
 }
 
-/* msg:
-*	Displays an error message to the standard error.
-*	Returns the provided error number.
-*/
-int	msg(char *str1, char *str2, int errno)
-{
-	ft_putstr_fd("Fractol: ", 2);
-	ft_putstr_fd(str1, 2);
-	ft_putendl_fd(str2, 2);
-	return (errno);
-}
-
 /* end_fractol:
 *	Exits cleanly from the program.
 *	This function is registered to an MLX hook: whenever the
@@ -59,4 +47,12 @@ int	end_fractol(t_fractol *mlx)
 {
 	clean_exit(0, mlx);
 	return (0);
+}
+
+int	error(char *str1, int errno)
+{
+	write(2, "Fractol: ", 9);
+	write(2, str1, ft_strlen(str1));
+	write(2, "\n", 1);
+	return (errno);
 }

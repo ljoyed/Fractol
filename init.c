@@ -6,7 +6,7 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:35:18 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/04 14:35:23 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:11:03 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,7 @@ void	clean_init(t_fractol *f)
 */
 void	get_complex_layout(t_fractol *f)
 {
-	if (f->set == MANDELBOX)
-	{
-		f->min_r = -4.0;
-		f->max_r = 4.0;
-		f->min_i = -4.0;
-		f->max_i = f->min_i + (f->max_r - f->min_r) * HEIGHT / WIDTH;
-	}
-	else if (f->set == JULIA)
+	if (f->set == JULIA)
 	{
 		f->min_r = -2.0;
 		f->max_r = 2.0;
@@ -88,10 +81,10 @@ static void	init_img(t_fractol *f)
 
 	f->palette = ft_calloc((MAX_ITERATIONS + 1), sizeof(int));
 	if (!(f->palette))
-		clean_exit(msg("error initializing color scheme.", "", 1), f);
+		clean_exit(error("error initializing color scheme.", 1), f);
 	f->img = mlx_new_image(f->mlx, WIDTH, HEIGHT);
 	if (!(f->img))
-		clean_exit(msg("image creation error.", "", 1), f);
+		clean_exit(error("image creation error.", 1), f);
 	buf = mlx_get_data_addr(f->img, &pixel_bits, &line_bytes, &endian);
 	f->buf = buf;
 }
@@ -119,10 +112,10 @@ void	init(t_fractol *f)
 {
 	f->mlx = mlx_init();
 	if (!f->mlx)
-		clean_exit(msg("MLX: error connecting to mlx.", "", 1), f);
+		clean_exit(error("MLX: error connecting to mlx.", 1), f);
 	f->win = mlx_new_window(f->mlx, WIDTH, HEIGHT, "Fractol");
 	if (!f->win)
-		clean_exit(msg("MLX: error creating window.", "", 1), f);
+		clean_exit(error("MLX: error creating window.", 1), f);
 	f->sx = 2.0;
 	f->rx = 0.5;
 	f->fx = 1.0;

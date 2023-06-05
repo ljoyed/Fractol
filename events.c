@@ -6,7 +6,7 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:33:51 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/04 14:33:53 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:49:29 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,6 @@ static int	key_event_extend(int keycode, t_fractol *mlx)
 		mlx->set = MANDELBROT;
 	else if (keycode == KEY_TWO && mlx->set != JULIA)
 		mlx->set = JULIA;
-	else if (keycode == KEY_THREE && mlx->set != BURNING_SHIP)
-		mlx->set = BURNING_SHIP;
-	else if (keycode == KEY_FOUR && mlx->set != TRICORN)
-		mlx->set = TRICORN;
-	else if (keycode == KEY_FIVE && mlx->set != MANDELBOX)
-		mlx->set = MANDELBOX;
 	else
 		return (1);
 	get_complex_layout(mlx);
@@ -112,17 +106,13 @@ int	key_event(int keycode, t_fractol *mlx)
 		end_fractol(mlx);
 		return (0);
 	}
-	else if (keycode == KEY_PLUS)
-		zoom(mlx, 0.5);
-	else if (keycode == KEY_MINUS)
-		zoom(mlx, 2);
-	else if (keycode == KEY_UP || keycode == KEY_W)
+	else if (keycode == KEY_UP)
 		move(mlx, 0.2, 'U');
-	else if (keycode == KEY_DOWN || keycode == KEY_S)
+	else if (keycode == KEY_DOWN)
 		move(mlx, 0.2, 'D');
-	else if (keycode == KEY_LEFT || keycode == KEY_A)
+	else if (keycode == KEY_LEFT)
 		move(mlx, 0.2, 'L');
-	else if (keycode == KEY_RIGHT || keycode == KEY_D)
+	else if (keycode == KEY_RIGHT)
 		move(mlx, 0.2, 'R');
 	else if (keycode == KEY_SPACE)
 		color_shift(mlx);
