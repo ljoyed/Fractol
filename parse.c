@@ -6,17 +6,26 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:29:36 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/05 12:15:50 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:51:15 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/* skip_space_sign:
-*	Skips spaces, '+' and '-' sign characters and sets the
-*	is_neg variable if a '-' sign is detected.
-*	Used to parse strings representing float values for Julia.
-*/
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (c);
+	return (0);
+}
+
+int	ft_isspace(int c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (c);
+	return (0);
+}
+
 static int	skip_space_sign(char *str, int *is_neg)
 {
 	int	i;
@@ -33,12 +42,6 @@ static int	skip_space_sign(char *str, int *is_neg)
 	return (i);
 }
 
-/* ft_atof:
-*	Converts a string into a float (decimal number). Used to parse
-*	Julia starting values given as program arguments.
-*	Returns the converted double, or -42 in case of error (Julia accepts
-*	values between 2.0 and -2.0 only)
-*/
 double	ft_atof(char *str)
 {
 	int		i;

@@ -6,9 +6,11 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:29:29 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/05 18:38:21 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:52:35 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fractol.h"
 
 int	ft_strlen(const char *str)
 {
@@ -20,16 +22,40 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-int	ft_isdigit(int c)
+void	ft_bzero(void *s, size_t n)
 {
-	if (c >= '0' && c <= '9')
-		return (c);
-	return (0);
+	unsigned char	*p;
+
+	p = (unsigned char *)s;
+	while (n != 0)
+	{
+		*p = '\0';
+		p++;
+		n--;
+	}
 }
 
-int	ft_isspace(int c)
+void	*ft_calloc(size_t count, size_t size)
 {
-	if ((c >= 9 && c <= 13) || c == ' ')
-		return (c);
-	return (0);
+	void	*r;
+
+	r = malloc(count * size);
+	if (!r)
+		return (NULL);
+	ft_bzero(r, size * count);
+	return (r);
+}
+
+int	find_char(char *str, char a)
+{
+    int	i;
+    
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == a)
+            return (0);
+        i++;
+    }
+    return (1);
 }

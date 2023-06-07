@@ -1,27 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/06 09:24:41 by loandrad          #+#    #+#             */
+/*   Updated: 2023/06/07 16:14:22 by loandrad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-/* get_set:
-*	Retrieves the set specified in program arguments.
-*	If no valid set was provided, it displays a help
-*	message and quits the program.
-*/
+
+static int	match(char *s1, char *s2, int n)
+{
+	int	i;
+
+	i = 0;
+    if (ft_strlen(s1) == ft_strlen(s2))
+    {
+        while (n--)
+        {
+            if (s1[i] != s2[i])
+                return (1);
+            i++;
+        }
+        return (0);
+    }
+    return (1);
+}
+
 static void	get_set(t_fractol *f, char **av)
 {
-	if (av[1] == "mandelbrot")
+	if (match(av[1], "mandelbrot", ft_strlen("mandelbrot")) == 0)
 		f->set = MANDELBROT;
-	else if (av[1] == "julia")
+	else if (match(av[1], "julia", ft_strlen("julia")) == 0)
 		f->set = JULIA;
 	else
 		help_msg(f);
 }
 
-/* get_julia_starting_values:
-*	Checks whether starting values were provided at program launch
-*	for the Julia set. If not, default Julia values are assigned.
-*	If values were provided, parses them, returning an error message
-*	if the values are not valid.
-*/
-static void	get_julia_starting_values(t_fractol *f, int ac, char **av)
+static void	julia_init(t_fractol *f, int ac, char **av)
 {
 	if (f->set != JULIA || ac == 2)
 	{
@@ -31,9 +51,9 @@ static void	get_julia_starting_values(t_fractol *f, int ac, char **av)
 	}
 	if (ac == 3)
 		help_msg(f);
-	if (!ft_strchr(av[2], '.'))
+	if (find_char(av[2], '.') == 1)
 		help_msg(f);
-	if (!ft_strchr(av[3], '.'))
+	if (find_char(av[3], '.') == 1)
 		help_msg(f);
 	f->kr = ft_atof(av[2]);
 	f->ki = ft_atof(av[3]);
@@ -43,10 +63,6 @@ static void	get_julia_starting_values(t_fractol *f, int ac, char **av)
 		help_msg(f);
 }
 
-/* handle_args:
-*	Retrieves the set, the julia starting values and the color from
-*	the arguments passed at program launch.
-*/
 static void	handle_args(t_fractol *f, int ac, char **av)
 {
 	get_set(f, av);
@@ -54,27 +70,24 @@ static void	handle_args(t_fractol *f, int ac, char **av)
 		help_msg(f);
 	else if (f->set == JULIA && ac > 5)
 		help_msg(f);
-	get_julia_starting_values(f, ac, av);
-	f->color = 0x9966FF;
+	julia_init(f, ac, av);
+	f->color = 0xFFD700;
 }
 
-/* main:
-*	Initializes the fractol data structure, prints the program controls,
-*	opens a new window and registers hooks to detect user interactions.
-*	Loops infinitely until the user quits the process.
-*/
 int	main(int ac, char **av)
 {
 	t_fractol	f;
 
 	if (ac < 2)
-		help_msg(&f);
+	{
+		help_msg(NULL);
+		return (1);
+	}
 	clean_init(&f);
 	handle_args(&f, ac, av);
 	init(&f);
 	render(&f);
-	print_controls();
-	mlx_hook(f.win, EVENT_CLOSE_BTN, 0, end_fractol, &f);
+	mlx_hook(f.win, EVENT_CLOSE_BTN, 0, quit, &f);
 	mlx_key_hook(f.win, key_event, &f);
 	mlx_mouse_hook(f.win, mouse_event, &f);
 	mlx_loop(f.mlx);

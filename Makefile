@@ -6,24 +6,23 @@ CFLAGS = -Werror -Wall -Wextra -fsanitize=address
 
 RM = rm -rf
 
-SRCS = 	color_interpolated.c\
-		color_striped.c\
-		color.c\
+SRCS = 	color.c\
 		events.c\
 		fractol.c\
 		help.c\
 		init.c\
-		julia.c\
-		mandelbrot.c\
+		jul_man.c\
 		parse.c\
 		render.c\
 		utils.c\
 		utils2.c\
 
+INCLUDES = mlx/libmlx.a
+
 MLX_LIB = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 $(NAME) :
-	$(CC) $(CFLAGS) $(SRCS) $(MLX_LIB) -o $(NAME)
+	$(CC) $(SRCS) -o $(NAME) $(CFLAGS) $(INCLUDES) $(MLX_LIB)
 
 
 all : $(NAME)
