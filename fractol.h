@@ -6,7 +6,7 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:30:25 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/07 16:08:37 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:55:52 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FRACTOL_H
 
 # include "mlx/mlx.h"
-# include <stdio.h>
 # include <math.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -50,30 +49,24 @@ typedef struct s_fractol
 	double	kr;
 	double	ki;
 	int		*palette;
-	int		color_pattern;
+	int		color_count;
 	int		color;
 }	t_fractol;
 
 int		mandelbrot(double cr, double ci);
 int		julia(t_fractol *f, double zr, double zi);
-
 void	render(t_fractol *f);
-
-void	color_shift(t_fractol *f);
-
+void	toggle_color(t_fractol *f);
 int		key_event(int keycode, t_fractol *mlx);
 int		mouse_event(int keycode, int x, int y, t_fractol *mlx);
-
 void	clean_init(t_fractol *f);
 void	reinit_img(t_fractol *f);
 void	init(t_fractol *f);
 void	layout(t_fractol *f);
 double	ft_atof(char *str);
-
 int		quit(t_fractol *mlx);
 void	clean_up(int error_code, t_fractol *f);
 void	help_msg(t_fractol *f);
-
 int		error(char *str1, int errno);
 int		ft_strlen(const char *str);
 int		ft_isdigit(int c);

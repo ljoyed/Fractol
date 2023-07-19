@@ -6,29 +6,28 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:24:41 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/07 16:14:22 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:24:40 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
 
 static int	match(char *s1, char *s2, int n)
 {
 	int	i;
 
 	i = 0;
-    if (ft_strlen(s1) == ft_strlen(s2))
-    {
-        while (n--)
-        {
-            if (s1[i] != s2[i])
-                return (1);
-            i++;
-        }
-        return (0);
-    }
-    return (1);
+	if (ft_strlen(s1) == ft_strlen(s2))
+	{
+		while (n--)
+		{
+			if (s1[i] != s2[i])
+				return (1);
+			i++;
+		}
+		return (0);
+	}
+	return (1);
 }
 
 static void	get_set(t_fractol *f, char **av)
@@ -71,7 +70,6 @@ static void	handle_args(t_fractol *f, int ac, char **av)
 	else if (f->set == JULIA && ac > 5)
 		help_msg(f);
 	julia_init(f, ac, av);
-	f->color = 0xFFD700;
 }
 
 int	main(int ac, char **av)

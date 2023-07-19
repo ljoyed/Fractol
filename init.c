@@ -6,7 +6,7 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:35:18 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/07 17:41:14 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:16:42 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	clean_init(t_fractol *f)
 	f->kr = 0;
 	f->ki = 0;
 	f->palette = NULL;
-	f->color_pattern = -1;
+	f->color_count = 0;
 	f->color = 0;
 }
 
@@ -85,5 +85,5 @@ void	init(t_fractol *f)
 	if (!f->win)
 		clean_up(error("MLX: error creating window.", 1), f);
 	layout(f);
-	color_shift(f);
+	toggle_color(f);
 }

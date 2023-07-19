@@ -9,9 +9,7 @@ RM = rm -rf
 SRCS = 	color.c\
 		events.c\
 		fractol.c\
-		help.c\
 		init.c\
-		jul_man.c\
 		parse.c\
 		render.c\
 		utils.c\

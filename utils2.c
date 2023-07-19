@@ -6,7 +6,7 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:29:29 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/06 16:52:35 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:52:27 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void	*ft_calloc(size_t count, size_t size)
 
 int	find_char(char *str, char a)
 {
-    int	i;
-    
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == a)
-            return (0);
-        i++;
-    }
-    return (1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == a)
+			return (0);
+		i++;
+	}
+	return (1);
 }

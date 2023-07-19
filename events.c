@@ -6,20 +6,12 @@
 /*   By: loandrad <loandrad@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 14:33:51 by loandrad          #+#    #+#             */
-/*   Updated: 2023/06/07 11:41:39 by loandrad         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:52:10 by loandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/* zoom:
-*	Zooms the view of the fractal in or out by adjusting
-*	the complex number edge values by a zoom multiplier.
-*	The fractal can then be generated again at a different resolution,
-*	giving the appearance of zooming in or out.
-*	If the zoom multiplier is small, like 0.5, the view will
-*	zoom in, if it is big, like 2.0, it will zoom out.
-*/
 static void	zoom(t_fractol *f, double zoom)
 {
 	double	center_r;
@@ -62,7 +54,7 @@ static void	move(t_fractol *f, double distance, char direction)
 	}
 }
 
-static int	key_event_extend(int keycode, t_fractol *mlx)
+static int	key_events_contd(int keycode, t_fractol *mlx)
 {
 	if (keycode == KEY_ONE && mlx->set != MANDELBROT)
 		mlx->set = MANDELBROT;
@@ -91,8 +83,8 @@ int	key_event(int keycode, t_fractol *mlx)
 	else if (keycode == KEY_RIGHT)
 		move(mlx, 0.2, 'R');
 	else if (keycode == KEY_SPACE)
-		color_shift(mlx);
-	else if (!key_event_extend(keycode, mlx))
+		toggle_color(mlx);
+	else if (!key_events_contd(keycode, mlx))
 		return (1);
 	else
 		return (1);
